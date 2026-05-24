@@ -3,12 +3,34 @@ import numpy as np
 import sys
 import os
 
-sys.path.append(os.path.dirname(__file__))
-from config import COLORS_4, CELL_SIZE
+import tomllib
+
+config_path = os.path.join(os.path.dirname(__file__), "config.toml")
+with open(config_path, "rb") as f:
+    config = tomllib.load(f)
+
+COLORS_4 = [tuple(c) for c in config["colors"]["colors_4"]]
+CELL_SIZE = config["cell_size"]
 
 
-def create_grid(size=21):
-    grid = np.random.randint(0, len(COLORS_4), (size, size))
+def text_to_grid(text, size=21):
+    # 文字列をバイナリに変えるぜええええ
+    binary = "".join(format(ord(c), "08b") for c in text)
+
+    # 2ビットずつ区切るそしてぇ色に変換
+    cells = []
+    for i in range(0, len(binary), 2):
+        bits = binary[i : i + 2]
+        if len(bits) < 2:
+            bits = bits.ljust(2, "0")
+        cells.append(int(bits, 2))
+
+    # グリッドにtumetume
+    total = size * size
+    cells = cells[:total]
+    cells += [0] * (total - len(cells))
+
+    grid = np.array(cells).reshape(size, size)
     return grid
 
 
@@ -26,8 +48,8 @@ def grid_to_image(grid):
     return img
 
 
-def encode(output_path="output/test.png"):
-    grid = create_grid()
+def encode(text="hello", output_path="output/test.png"):
+    grid = text_to_grid(text)
     img = grid_to_image(grid)
     img.save(output_path)
     print(f"hozon sitayo!: {output_path}")
