@@ -1,2 +1,2 @@
 qrコードに色をつけてサイズに対して詰め込めるデータ量を増やせないかというプロジェクトです。まだ未完成です。
-ちなみに"QoloR"の意味はColorなQRなので CをQRのQに RはQRのRでQoloRです
+〜ちなみに"QoloR"の意味はColorなQRなので CをQRのQに RはQRのRでQoloRです〜
