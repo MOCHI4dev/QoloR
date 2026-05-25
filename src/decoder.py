@@ -22,7 +22,7 @@ def image_to_grid(img, size=21):
             py = y * CELL_SIZE + CELL_SIZE // 2
             pixel = img.getpixel((px, py))
 
-            # 一番近い色を探す
+            # 一番近い色を探すぜえええええええ
             min_dist = float("inf")
             best_idx = 0
             for i, color in enumerate(COLORS_4):
